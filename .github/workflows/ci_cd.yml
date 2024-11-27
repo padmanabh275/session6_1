@@ -1,4 +1,4 @@
-name: ML Model CI/CD
+name: MNIST Model CI/CD
 
 on:
   push:
@@ -7,9 +7,9 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-test:
+  test:
     runs-on: ubuntu-latest
-
+    
     steps:
     - uses: actions/checkout@v2
     
@@ -18,21 +18,56 @@ jobs:
       with:
         python-version: '3.8'
     
+    - name: Cache pip dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+        pip install pytest pytest-cov
     
-    - name: Run tests
+    - name: Run tests with coverage
       run: |
-        pytest src/test_model.py
+        cd src
+        python -m pytest test_model.py -v --cov=. --cov-report=xml
     
-    - name: Train model
-      run: |
-        python src/train.py
-    
-    - name: Upload model artifact
-      uses: actions/upload-artifact@v2
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v2
       with:
-        name: trained-model
-        path: mnist_model_*.pth 
+        file: ./src/coverage.xml
+        flags: unittests
+        fail_ci_if_error: true
+
+    - name: Check model parameters
+      run: |
+        cd src
+        python -c "from model import MNISTResNet; model = MNISTResNet(); assert model.count_parameters() < 20000, 'Model has too many parameters'"
+    
+    - name: Verify model architecture
+      run: |
+        cd src
+        python -c "
+        from model import MNISTResNet
+        import torch.nn as nn
+        model = MNISTResNet()
+        has_bn = any(isinstance(m, nn.BatchNorm2d) for m in model.modules())
+        has_dropout = any(isinstance(m, nn.Dropout) for m in model.modules())
+        assert has_bn, 'Model missing BatchNorm'
+        assert has_dropout, 'Model missing Dropout'
+        "
+
+    - name: Build status badge
+      uses: schneegans/dynamic-badges-action@v1.1.0
+      with:
+        auth: ${{ secrets.GIST_SECRET }}
+        gistID: your-gist-id
+        filename: build-status.json
+        label: build
+        message: succeeded
+        color: brightgreen
