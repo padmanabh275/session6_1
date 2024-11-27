@@ -2,29 +2,22 @@ name: MNIST Model CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main", "master" ]
   pull_request:
-    branches: [ main ]
+    branches: [ "main", "master" ]
 
 jobs:
-  test:
+  build-and-test:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: '3.8'
-    
-    - name: Cache pip dependencies
-      uses: actions/cache@v2
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
+        cache: 'pip'
     
     - name: Install dependencies
       run: |
@@ -32,22 +25,26 @@ jobs:
         pip install -r requirements.txt
         pip install pytest pytest-cov
     
-    - name: Run tests with coverage
+    - name: List directory contents
+      run: |
+        ls -la
+        ls -la src/
+    
+    - name: Run tests
       run: |
         cd src
-        python -m pytest test_model.py -v --cov=. --cov-report=xml
+        python -m pytest test_model.py -v
     
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v2
-      with:
-        file: ./src/coverage.xml
-        flags: unittests
-        fail_ci_if_error: true
-
     - name: Check model parameters
       run: |
         cd src
-        python -c "from model import MNISTResNet; model = MNISTResNet(); assert model.count_parameters() < 20000, 'Model has too many parameters'"
+        python -c "
+        from model import MNISTResNet
+        model = MNISTResNet()
+        params = model.count_parameters()
+        print(f'Total parameters: {params}')
+        assert params < 20000, f'Model has {params} parameters, exceeding limit of 20000'
+        "
     
     - name: Verify model architecture
       run: |
@@ -60,14 +57,24 @@ jobs:
         has_dropout = any(isinstance(m, nn.Dropout) for m in model.modules())
         assert has_bn, 'Model missing BatchNorm'
         assert has_dropout, 'Model missing Dropout'
+        print('Architecture verification passed')
         "
 
-    - name: Build status badge
-      uses: schneegans/dynamic-badges-action@v1.1.0
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-results
+        path: src/__pycache__/
+        retention-days: 30
+
+    - name: Update status badge
+      if: success()
+      uses: schneegans/dynamic-badges-action@v1.6.0
       with:
         auth: ${{ secrets.GIST_SECRET }}
-        gistID: your-gist-id
-        filename: build-status.json
+        gistID: ${{ secrets.GIST_ID }}
+        filename: mnist-build-status.json
         label: build
-        message: succeeded
+        message: passing
         color: brightgreen
