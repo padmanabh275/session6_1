@@ -6,33 +6,33 @@ A deep neural network classifier for MNIST digits using PyTorch, featuring ResNe
 
 ## Project Structure 
 -project/
-├── .github/workflows/ # CI/CD configuration
-├── src/ # Source code
-│ ├── model.py # Model architecture
-│ ├── train.py # Training script
-│ └── test_model.py # Model tests
-├── requirements.txt # Dependencies
-└── README.md
+<br>├── .github/workflows/ # CI/CD configuration
+<br>├── src/ # Source code
+<br>│ ├── model.py # Model architecture
+<br>│ ├── train.py # Training script
+<br>│ └── test_model.py # Model tests
+<br>├── requirements.txt # Dependencies
+<br>└── README.md
 
 Model Parameter Details:
 ------------------------
-conv1.weight: 72 parameters
-bn1.weight: 8 parameters
-bn1.bias: 8 parameters
-conv2.weight: 576 parameters
-bn2.weight: 8 parameters
-bn2.bias: 8 parameters
-conv3.weight: 576 parameters
-bn3.weight: 8 parameters
-bn3.bias: 8 parameters
-onecross.weight: 128 parameters
-conv4.weight: 2,304 parameters
-bn4.weight: 16 parameters
-bn4.bias: 16 parameters
-conv5.weight: 2,304 parameters
-bn5.weight: 16 parameters
-bn5.bias: 16 parameters
-conv6.weight: 7,840 parameters
+<br>conv1.weight: 72 parameters
+<br>bn1.weight: 8 parameters
+<br>bn1.bias: 8 parameters
+<br>conv2.weight: 576 parameters
+<br>bn2.weight: 8 parameters
+<br>bn2.bias: 8 parameters
+<br>conv3.weight: 576 parameters
+<br>bn3.weight: 8 parameters
+<br>bn3.bias: 8 parameters
+<br>onecross.weight: 128 parameters
+<br>conv4.weight: 2,304 parameters
+<br>bn4.weight: 16 parameters
+<br>bn4.bias: 16 parameters
+<br>conv5.weight: 2,304 parameters
+<br>bn5.weight: 16 parameters
+<br>bn5.bias: 16 parameters
+<br>conv6.weight: 7,840 parameters
 
 Total Trainable Parameters: 13,912
 
@@ -60,28 +60,28 @@ The architecture maintains good feature extraction capability while staying with
 
 ##Training - 
 
-<br> Epoch   Train Loss  Val Loss    Train Acc   Val Acc      LR
-<br>--------------------------------------------------------------
-<br>  1    0.3443    0.0762     89.84%     97.60%    0.001808
-<br>  2    0.0738    0.0678     97.77%     97.99%    0.005205
-<br>  3    0.0729    0.0634     97.76%     97.99%    0.008599
-<br>  4    0.0517    0.0489     98.39%     98.64%    0.010000
-<br>  5    0.0429    0.0436     98.64%     98.63%    0.009903
-<br>  6    0.0371    0.0379     98.78%     98.89%    0.009618
-<br>  7    0.0323    0.0376     98.95%     98.87%    0.009156
-<br>  8    0.0309    0.0505     98.97%     98.58%    0.008534
-<br>  9    0.0292    0.0353     99.06%     98.94%    0.007776
-<br> 10    0.0229    0.0321     99.25%     99.06%    0.006911
-<br> 11    0.0219    0.0379     99.29%     98.85%    0.005973
-<br> 12    0.0186    0.0309     99.37%     99.15%    0.004998
-<br> 13    0.0176    0.0290     99.42%     99.19%    0.004022
-<br> 14    0.0141    0.0288     99.54%     99.23%    0.003084
-<br> 15    0.0120    0.0263     99.61%     99.36%    0.002220
-<br> 16    0.0091    0.0283     99.70%     99.28%    0.001463
-<br> 17    0.0077    0.0269     99.74%     99.39%    0.000841
-<br> 18    0.0060    0.0265     99.81%     99.41%    0.000380
-<br> 19    0.0053    0.0257     99.84%     99.39%    0.000096
-<br> 20    0.0048    0.0258     99.86%     99.39%    0.000000
+<br>  Epoch     Train Loss    Val Loss      Train Acc     Val Acc      LR
+<br>----------------------------------------------------------------------
+<br>  1          0.3443        0.0762       89.84%       97.60%    0.001808
+<br>  2          0.0738        0.0678       97.77%       97.99%    0.005205
+<br>  3          0.0729        0.0634       97.76%       97.99%    0.008599
+<br>  4          0.0517        0.0489       98.39%       98.64%    0.010000
+<br>  5          0.0429        0.0436       98.64%       98.63%    0.009903
+<br>  6          0.0371        0.0379       98.78%       98.89%    0.009618
+<br>  7          0.0323        0.0376       98.95%       98.87%    0.009156
+<br>  8          0.0309        0.0505       98.97%       98.58%    0.008534
+<br>  9          0.0292        0.0353       99.06%       98.94%    0.007776
+<br> 10          0.0229        0.0321       99.25%       99.06%    0.006911
+<br> 11          0.0219        0.0379       99.29%       98.85%    0.005973
+<br> 12          0.0186        0.0309       99.37%       99.15%    0.004998
+<br> 13          0.0176        0.0290       99.42%       99.19%    0.004022
+<br> 14          0.0141        0.0288       99.54%       99.23%    0.003084
+<br> 15          0.0120        0.0263       99.61%       99.36%    0.002220
+<br> 16          0.0091        0.0283       99.70%       99.28%    0.001463
+<br> 17          0.0077        0.0269       99.74%       99.39%    0.000841
+<br> 18          0.0060        0.0265       99.81%       99.41%    0.000380
+<br> 19          0.0053        0.0257       99.84%       99.39%    0.000096
+<br> 20          0.0048        0.0258       99.86%       99.39%    0.000000
 
 Training completed. Best validation accuracy: 99.41%
 
