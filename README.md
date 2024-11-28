@@ -16,134 +16,74 @@ A deep neural network classifier for MNIST digits using PyTorch, featuring ResNe
 
 Model Parameter Details:
 ------------------------
-convblock1.conv.0.weight: 16 parameters
-convblock1.conv.2.weight: 16 parameters
-convblock1.conv.2.bias: 16 parameters
-convblock1.conv.3.weight: 256 parameters
-convblock1.conv.5.weight: 16 parameters
-convblock1.conv.5.bias: 16 parameters
-se1.fc.0.weight: 512 parameters
-se1.fc.2.weight: 256 parameters
-convblock2.conv.0.weight: 256 parameters
-convblock2.conv.2.weight: 16 parameters
-convblock2.conv.2.bias: 16 parameters
-convblock2.conv.3.weight: 256 parameters
-convblock2.conv.5.weight: 16 parameters
-convblock2.conv.5.bias: 16 parameters
-transition1.conv1.weight: 384 parameters
-transition1.bn1.weight: 20 parameters
-transition1.bn1.bias: 20 parameters
-transition1.conv2.weight: 480 parameters
-transition1.bn2.weight: 24 parameters
-transition1.bn2.bias: 24 parameters
-convblock3.conv.0.weight: 672 parameters
-convblock3.conv.2.weight: 28 parameters
-convblock3.conv.2.bias: 28 parameters
-convblock3.conv.3.weight: 784 parameters
-convblock3.conv.5.weight: 28 parameters
-convblock3.conv.5.bias: 28 parameters
-se2.fc.0.weight: 1,568 parameters
-se2.fc.2.weight: 784 parameters
-convblock4.conv.0.weight: 784 parameters
-convblock4.conv.2.weight: 28 parameters
-convblock4.conv.2.bias: 28 parameters
-convblock4.conv.3.weight: 784 parameters
-convblock4.conv.5.weight: 28 parameters
-convblock4.conv.5.bias: 28 parameters
-transition2.conv1.weight: 896 parameters
-transition2.bn1.weight: 32 parameters
-transition2.bn1.bias: 32 parameters
-transition2.conv2.weight: 1,024 parameters
-transition2.bn2.weight: 32 parameters
-transition2.bn2.bias: 32 parameters
-convblock5.conv.0.weight: 1,152 parameters
-convblock5.conv.2.weight: 36 parameters
-convblock5.conv.2.bias: 36 parameters
-convblock5.conv.3.weight: 1,296 parameters
-convblock5.conv.5.weight: 36 parameters
-convblock5.conv.5.bias: 36 parameters
-se3.fc.0.weight: 2,592 parameters
-se3.fc.2.weight: 1,296 parameters
-convblock6.conv.0.weight: 1,440 parameters
-convblock6.conv.2.weight: 40 parameters
-convblock6.conv.2.bias: 40 parameters
-convblock6.conv.3.weight: 1,600 parameters
-convblock6.conv.5.weight: 40 parameters
-convblock6.conv.5.bias: 40 parameters
-convblock7.conv.0.weight: 1,920 parameters
-convblock7.conv.2.weight: 48 parameters
-convblock7.conv.2.bias: 48 parameters
-convblock7.conv.3.weight: 2,304 parameters
-convblock7.conv.5.weight: 48 parameters
-convblock7.conv.5.bias: 48 parameters
-convblock8.0.weight: 3,072 parameters
-convblock8.2.weight: 32 parameters
-convblock8.2.bias: 32 parameters
-convblock8.3.weight: 320 parameters
+conv1.weight: 72 parameters
+bn1.weight: 8 parameters
+bn1.bias: 8 parameters
+conv2.weight: 576 parameters
+bn2.weight: 8 parameters
+bn2.bias: 8 parameters
+conv3.weight: 576 parameters
+bn3.weight: 8 parameters
+bn3.bias: 8 parameters
+onecross.weight: 128 parameters
+conv4.weight: 2,304 parameters
+bn4.weight: 16 parameters
+bn4.bias: 16 parameters
+conv5.weight: 2,304 parameters
+bn5.weight: 16 parameters
+bn5.bias: 16 parameters
+conv6.weight: 7,840 parameters
 
-Total Trainable Parameters: 19,392
-
-Input shape: (1, 1, 28, 28)
-Output shape: (1, 10)
+Total Trainable Parameters: 13,912
 
 Layer-wise summary:
 --------------------------------------------------------------------------------
 Layer                                     Output Shape         Param #    
 --------------------------------------------------------------------------------
-convblock1.conv.0                         (16, 1, 1)          16
-convblock1.conv.2                         (16,)               32
-convblock1.conv.3                         (16, 16, 3, 3)      256
-convblock1.conv.5                         (16,)               32
-se1.fc.0                                  (32, 16)            512
-se1.fc.2                                  (16, 16)            256
-convblock2.conv.0                         (16, 16, 1, 1)      256
-convblock2.conv.2                         (16,)               32
-convblock2.conv.3                         (16, 16, 3, 3)      256
-convblock2.conv.5                         (16,)               32
-transition1.conv1                         (20, 16, 1, 1)      320
-transition1.bn1                           (20,)               40
-transition1.conv2                         (24, 20, 1, 1)      480
-transition1.bn2                           (24,)               48
-... (similar pattern continues)
+conv1                                     (8, 1, 3, 3)        72
+bn1                                       (8,)                16
+conv2                                     (8, 8, 3, 3)        576
+bn2                                       (8,)                16
+conv3                                     (8, 8, 3, 3)        576
+bn3                                       (8,)                16
+onecross                                  (16, 8, 1, 1)       128
+conv4                                     (16, 16, 3, 3)      2,304
+bn4                                       (16,)               32
+conv5                                     (16, 16, 3, 3)      2,304
+bn5                                       (16,)               32
+conv6                                     (10, 16, 7, 7)      7,840
+--------------------------------------------------------------------------------
+Total trainable parameters: 13,912
 
-
-The model has:
-Total parameters: 19,392 (under 20K limit)
-Progressive channel expansion: 1→16→24→28→32→36→40→48
-Three main blocks with SE attention
-Efficient parameter usage through:
-Depthwise separable convolutions
-Bottleneck designs
-Shared parameters in SE blocks
-Efficient transitions
 
 The architecture maintains good feature extraction capability while staying within the parameter budget.
 
 ##Training - 
 
-<br>  1    1.5183    0.7063     54.67%     97.52%    0.002927 
-<br>  2    0.9517    0.6929     77.62%     97.79%    0.002714 
-<br>  3    0.9095    0.6386     79.40%     98.84%    0.002382 
-<br>  4    0.8840    0.5999     76.95%     99.16%    0.001964 
-<br>  5    0.8443    0.5810     80.38%     98.97%    0.001500 
-<br>  6    0.8350    0.5597     78.46%     99.15%    0.001037 
-<br>  7    0.7870    0.5355     81.22%     99.09%    0.000619 
-<br>  8    0.7518    0.5063     79.92%     99.16%    0.000287 
-<br>  9    0.7472    0.4823     80.35%     99.32%    0.000074 
-<br> 10    0.7063    0.4486     81.88%     99.36%    0.000001 
-<br> 11    0.3541    0.4233     80.90%     99.37%    0.000025 
-<br> 12    0.3427    0.4001     81.27%     99.37%    0.000096 
-<br> 13    0.3413    0.3760     79.66%     99.37%    0.000207 
-<br> 14    0.3104    0.3505     82.56%     99.38%    0.000346 
-<br> 15    0.3143    0.3250     79.36%     99.38%    0.000500 
-<br> 16    0.1508    0.3039     81.38%     99.33%    0.000655 
-<br> 17    0.1502    0.2765     81.67%     99.34%    0.000794 
-<br> 18    0.1510    0.2488     79.59%     99.33%    0.000905 
-<br> 19    0.1425    0.2208     79.48%     99.39%    0.000976 
-<br> 20    0.1403    0.2174     80.03%     99.40%    0.001000 
+Epoch   Train Loss  Val Loss    Train Acc   Val Acc      LR
+--------------------------------------------------------
+  1    0.3443    0.0762     89.84%     97.60%    0.001808
+  2    0.0738    0.0678     97.77%     97.99%    0.005205
+  3    0.0729    0.0634     97.76%     97.99%    0.008599
+  4    0.0517    0.0489     98.39%     98.64%    0.010000
+  5    0.0429    0.0436     98.64%     98.63%    0.009903
+  6    0.0371    0.0379     98.78%     98.89%    0.009618
+  7    0.0323    0.0376     98.95%     98.87%    0.009156
+  8    0.0309    0.0505     98.97%     98.58%    0.008534
+  9    0.0292    0.0353     99.06%     98.94%    0.007776
+ 10    0.0229    0.0321     99.25%     99.06%    0.006911
+ 11    0.0219    0.0379     99.29%     98.85%    0.005973
+ 12    0.0186    0.0309     99.37%     99.15%    0.004998
+ 13    0.0176    0.0290     99.42%     99.19%    0.004022
+ 14    0.0141    0.0288     99.54%     99.23%    0.003084
+ 15    0.0120    0.0263     99.61%     99.36%    0.002220
+ 16    0.0091    0.0283     99.70%     99.28%    0.001463
+ 17    0.0077    0.0269     99.74%     99.39%    0.000841
+ 18    0.0060    0.0265     99.81%     99.41%    0.000380
+ 19    0.0053    0.0257     99.84%     99.39%    0.000096
+ 20    0.0048    0.0258     99.86%     99.39%    0.000000
 
-Training completed. Best validation accuracy: 99.40%
-
+Training completed. Best validation accuracy: 99.41%
 
 ## Local Setup and Running
 
@@ -214,20 +154,14 @@ All test cases are implemented in test_model.py and will be run both locally and
 The CI/CD pipeline will automatically run on push to main branch.
 
 ### Training Metrics
-![alt text](image-1.png)
-- Loss and accuracy curves showing stable convergence
-- Validation accuracy consistently above training accuracy
-- Smooth learning progression
+![alt text](image-2.png)
 
 ### Convergence 
-![alt text](image.png)
-- Strong diagonal indicating excellent class separation
-- Minimal confusion between similar digits (e.g., 4 and 9)
-- Balanced performance across all classes
+![alt text](image-3.png)
 
 ### Key Achievements
-- **Final Accuracy**: 99.40% on validation set
-- **Parameters**: 19,392 (well under 20,000 limit)
+- **Final Accuracy**: 99.41% on validation set
+- **Parameters**: 13,912 (well under 20,000 limit)
 - **Training Time**: ~3 minutes on GPU
 - **Convergence**: Achieved in 20 epochs
 
@@ -244,25 +178,19 @@ The CI/CD pipeline will automatically run on push to main branch.
 
 ## Latest Model Checkpoint
 
-[text](src/mnist_model_20241127_180110_acc99.40.pth)
+[text](src/mnist_model_20241128_154800_acc99.41.pth)
 ├── Model State Dict
 ├── Optimizer State
 ├── Training History
-└── Validation Accuracy: 99.40%
+└── Validation Accuracy: 99.4%
 
 - Loss and accuracy curves showing stable convergence
 - Validation accuracy consistently above training accuracy
 - Smooth learning progression
 
-### Confusion Matrix
-![Confusion Matrix](training_plots/final_confusion_matrix.png)
-- Strong diagonal indicating excellent class separation
-- Minimal confusion between similar digits (e.g., 4 and 9)
-- Balanced performance across all classes
-
 ### Key Achievements
-- **Final Accuracy**: 99.40% on validation set
-- **Parameters**: 19,392 (well under 20,000 limit)
+- **Final Accuracy**: 99.41% on validation set
+- **Parameters**: 13,912 (well under 20,000 limit)
 - **Training Time**: ~3 minutes on GPU
 - **Convergence**: Achieved in 20 epochs
 
@@ -279,8 +207,8 @@ The CI/CD pipeline will automatically run on push to main branch.
 
 ## Latest Model Checkpoint
 
-[text](src/mnist_model_20241127_180110_acc99.40.pth)
+[text](src/mnist_model_20241128_154800_acc99.41.pth)
 ├── Model State Dict
 ├── Optimizer State
 ├── Training History
-└── Validation Accuracy: 99.40%
+└── Validation Accuracy: 99.41%
