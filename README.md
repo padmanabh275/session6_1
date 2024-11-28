@@ -34,26 +34,26 @@ Model Parameter Details:
 <br>bn5.bias: 16 parameters
 <br>conv6.weight: 7,840 parameters
 
-Total Trainable Parameters: 13,912
+<br>Total Trainable Parameters: 13,912
 
-Layer-wise summary:
---------------------------------------------------------------------------------
-Layer                                     Output Shape         Param #    
---------------------------------------------------------------------------------
-conv1                                     (8, 1, 3, 3)        72
-bn1                                       (8,)                16
-conv2                                     (8, 8, 3, 3)        576
-bn2                                       (8,)                16
-conv3                                     (8, 8, 3, 3)        576
-bn3                                       (8,)                16
-onecross                                  (16, 8, 1, 1)       128
-conv4                                     (16, 16, 3, 3)      2,304
-bn4                                       (16,)               32
-conv5                                     (16, 16, 3, 3)      2,304
-bn5                                       (16,)               32
-conv6                                     (10, 16, 7, 7)      7,840
---------------------------------------------------------------------------------
-Total trainable parameters: 13,912
+<br>Layer-wise summary:
+<br>--------------------------------------------------------------------------------
+<br>Layer                                     Output Shape         Param #    
+<br>--------------------------------------------------------------------------------
+<br>conv1                                     (8, 1, 3, 3)        72
+<br>bn1                                       (8,)                16
+<br>conv2                                     (8, 8, 3, 3)        576
+<br>bn2                                       (8,)                16
+<br>conv3                                     (8, 8, 3, 3)        576
+<br>bn3                                       (8,)                16
+<br>onecross                                  (16, 8, 1, 1)       128
+<br>conv4                                     (16, 16, 3, 3)      2,304
+<br>bn4                                       (16,)               32
+<br>conv5                                     (16, 16, 3, 3)      2,304
+<br>bn5                                       (16,)               32
+<br>conv6                                     (10, 16, 7, 7)      7,840
+<br>--------------------------------------------------------------------------------
+<br>Total trainable parameters: 13,912
 
 
 The architecture maintains good feature extraction capability while staying within the parameter budget.
@@ -105,7 +105,7 @@ The architecture maintains good feature extraction capability while staying with
 
 Training completed. Best validation accuracy: 99.41%
 
-## Local Setup and Running
+### Local Setup and Running
 
 1. Create a virtual environment:
 bash
@@ -126,7 +126,7 @@ bash
 cd src
 python train.py
 
-## CI/CD Pipeline
+### CI/CD Pipeline
 
 The GitHub Actions workflow automatically:
 1. Runs all tests on push/PR to main branch
@@ -134,12 +134,12 @@ The GitHub Actions workflow automatically:
 3. Checks parameter count
 4. Verifies BatchNorm and Dropout usage
 
-## Model Artifacts
+### Model Artifacts
 
 Trained models are saved with the naming convention:
 `mnist_model_YYYYMMDD_HHMMSS_accuracy.pth`
 
-## Tests
+### Tests
 
 The following tests are implemented:
 1. Total Parameter Count Test (<20,000)
@@ -147,7 +147,7 @@ The following tests are implemented:
 3. Dropout Layer Usage
 4. Input/Output Shape Validation
 
-## GitHub Setup
+### GitHub Setup
 
 1. Create a new repository
 2. Clone this project
