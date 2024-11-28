@@ -67,14 +67,3 @@ jobs:
         name: test-results
         path: src/__pycache__/
         retention-days: 30
-
-    - name: Update status badge
-      if: success()
-      uses: schneegans/dynamic-badges-action@v1.6.0
-      with:
-        auth: ${{ secrets.GIST_SECRET }}
-        gistID: ${{ secrets.GIST_ID }}
-        filename: mnist-build-status.json
-        label: build
-        message: passing
-        color: brightgreen
